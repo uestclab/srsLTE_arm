@@ -93,7 +93,7 @@ void log_on_exit()
 {
   log_out.info("[TESTER] UE stats:\n");
   for (auto& e : ue_stats) {
-    log_out.info("0x%x: {DL RBs: %lu, UL RBs: %lu}\n", e.first, e.second.nof_dl_rbs, e.second.nof_ul_rbs);
+    log_out.info("0x%x: {DL RBs: %lu, UL RBs: %lu}\n", e.first, (long unsigned int)e.second.nof_dl_rbs, (long unsigned int)e.second.nof_ul_rbs);
   }
   log_out.info("[TESTER] This was the seed: %u\n", seed);
 }
@@ -375,7 +375,7 @@ void sched_tester::process_results()
 void sched_tester::run_tti(uint32_t tti_rx)
 {
   new_test_tti(tti_rx);
-  log_out.info("[TESTER] ---- tti=%u | nof_ues=%lu ----\n", tti_rx, ue_db.size());
+  log_out.info("[TESTER] ---- tti=%u | nof_ues=%lu ----\n", tti_rx, (long unsigned int)ue_db.size());
 
   process_tti_args();
 

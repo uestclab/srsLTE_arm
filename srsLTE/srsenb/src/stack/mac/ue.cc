@@ -372,7 +372,7 @@ void ue::allocate_ce(srslte::sch_pdu *pdu, uint32_t lcid)
     case srslte::sch_subh::CON_RES_ID: 
       if (pdu->new_subh()) {
         if (pdu->get()->set_con_res_id(conres_id)) {
-          Info("CE:    Added Contention Resolution ID=0x%lx\n", conres_id);
+          Info("CE:    Added Contention Resolution ID=0x%lx\n", (long unsigned int)conres_id);
         } else {
           Error("CE:    Setting Contention Resolution ID CE\n");
         }

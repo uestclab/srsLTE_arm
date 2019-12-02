@@ -783,7 +783,7 @@ void sch_subh::fprint(FILE* stream)
     } else {
       switch (lcid) {
         case CON_RES_ID:
-          fprintf(stream, "Contention Resolution ID CE: 0x%lx\n", get_con_res_id());
+          fprintf(stream, "Contention Resolution ID CE: 0x%lx\n", (long unsigned int)get_con_res_id());
           break;
         case TA_CMD:
           fprintf(stream, "Time Advance Command CE: %d\n", get_ta_cmd());

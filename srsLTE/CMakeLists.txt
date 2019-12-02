@@ -33,6 +33,7 @@ endif(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
 cmake_minimum_required(VERSION 2.6)
 project( SRSLTE )
 message( STATUS "CMAKE_SYSTEM: " ${CMAKE_SYSTEM} )
+set(CMAKE_SYSTEM_PROCESSOR "arm")
 message( STATUS "CMAKE_SYSTEM_PROCESSOR: " ${CMAKE_SYSTEM_PROCESSOR} )
 message( STATUS "CMAKE_CXX_COMPILER: " ${CMAKE_CXX_COMPILER} )
 
@@ -64,15 +65,15 @@ configure_file(
 ########################################################################
 option(ENABLE_SRSUE    "Build srsUE application"                  ON)
 option(ENABLE_SRSENB   "Build srsENB application"                 ON)
-option(ENABLE_SRSEPC   "Build srsEPC application"                 ON)
+option(ENABLE_SRSEPC   "Build srsEPC application"                 OFF)
 option(DISABLE_SIMD    "disable simd instructions"                OFF)
 
-option(ENABLE_GUI      "Enable GUI (using srsGUI)"                ON)
-option(ENABLE_UHD      "Enable UHD"                               ON)
-option(ENABLE_BLADERF  "Enable BladeRF"                           ON)
-option(ENABLE_SOAPYSDR "Enable SoapySDR"                          ON)
-option(ENABLE_ZEROMQ   "Enable ZeroMQ"                            ON)
-option(ENABLE_HARDSIM  "Enable support for SIM cards"             ON)
+option(ENABLE_GUI      "Enable GUI (using srsGUI)"                OFF)
+option(ENABLE_UHD      "Enable UHD"                               OFF)
+option(ENABLE_BLADERF  "Enable BladeRF"                           OFF)
+option(ENABLE_SOAPYSDR "Enable SoapySDR"                          OFF)
+option(ENABLE_ZEROMQ   "Enable ZeroMQ"                            OFF)
+option(ENABLE_HARDSIM  "Enable support for SIM cards"             OFF)
 
 option(ENABLE_TTCN3    "Enable TTCN3 test binaries"               OFF)
 
@@ -189,14 +190,18 @@ if(ENABLE_ZEROMQ)
 endif(ENABLE_ZEROMQ)
 
 if(BLADERF_FOUND OR UHD_FOUND OR SOAPYSDR_FOUND OR ZEROMQ_FOUND)
+  message(STATUS "RF_FOUND TRUE")
   set(RF_FOUND TRUE CACHE INTERNAL "RF frontend found")
 else(BLADERF_FOUND OR UHD_FOUND OR SOAPYSDR_FOUND OR ZEROMQ_FOUND)
-  set(RF_FOUND FALSE CACHE INTERNAL "RF frontend found")
-  add_definitions(-DDISABLE_RF)
+  message(STATUS "RF_FOUND false")
+  set(RF_FOUND TRUE CACHE INTERNAL "RF frontend found")
+  #set(RF_FOUND FALSE CACHE INTERNAL "RF frontend found")
+  #add_definitions(-DDISABLE_RF)
 endif(BLADERF_FOUND OR UHD_FOUND OR SOAPYSDR_FOUND OR ZEROMQ_FOUND)
 
 # Boost
 if(BUILD_STATIC)
+  message(STATUS "BUILD_STATIC LIBS ON")
   set(Boost_USE_STATIC_LIBS ON)
 endif(BUILD_STATIC)
 
@@ -215,9 +220,17 @@ set(Boost_ADDITIONAL_VERSIONS
     "1.60.0" "1.60" "1.61.0" "1.61" "1.62.0" "1.62" "1.63.0" "1.63" "1.64.0" "1.64"
     "1.65.0" "1.65" "1.66.0" "1.66" "1.67.0" "1.67" "1.68.0" "1.68" "1.69.0" "1.69"
 )
-find_package(Boost "1.35" COMPONENTS ${BOOST_REQUIRED_COMPONENTS})
+#find_package(Boost "1.35" COMPONENTS ${BOOST_REQUIRED_COMPONENTS})
 
+#/usr/include/boost
+set(Boost_INCLUDE_DIRS "/usr/include")
+set(Boost_INCLUDE_DIRS "/home/gyl/liqingSpace/code/tmp/srsLTE/lib/boost_1_71_0/")
+set(Boost_LIBRARY_DIRS "/home/gyl/liqingSpace/code/tmp/srsLTE/lib/boost_1_71_0/stage/lib")
+set(Boost_LIBRARIES "/home/gyl/liqingSpace/code/tmp/srsLTE/lib/boost_1_71_0/stage/lib/libboost_program_options.so")
+
+set(Boost_FOUND 1)
 if(Boost_FOUND)
+  message(STATUS "Boost_FOUND !")
   include_directories(${Boost_INCLUDE_DIRS})
   link_directories(${Boost_LIBRARY_DIRS})
 else(Boost_FOUND)
@@ -389,7 +402,9 @@ endif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
 
 # Add -Werror to C/C++ flags for newer compilers
+message(STATUS "1.....CMAKE_CXX_COMPILER_VERSION is ${CMAKE_CXX_COMPILER_VERSION}")
 if(NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.9)
+  message(STATUS "2.....CMAKE_CXX_COMPILER_VERSION is ${CMAKE_CXX_COMPILER_VERSION}")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
 endif()

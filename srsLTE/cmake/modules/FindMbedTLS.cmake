@@ -17,6 +17,7 @@ FIND_PATH(
           ${CMAKE_INSTALL_PREFIX}/include
     PATHS /usr/local/include
           /usr/include
+          /home/gyl/liqingSpace/code/tmp/srsLTE/lib/mbedtls-2.16.3/arm/include/mbedtls
 )
 
 FIND_LIBRARY(
@@ -30,6 +31,7 @@ FIND_LIBRARY(
           /usr/local/lib64
           /usr/lib
           /usr/lib64
+          /home/gyl/liqingSpace/code/tmp/srsLTE/lib/mbedtls-2.16.3/arm/library
 )
 
 FIND_LIBRARY(
@@ -43,6 +45,7 @@ FIND_LIBRARY(
           /usr/local/lib64
           /usr/lib
           /usr/lib64
+          /home/gyl/liqingSpace/code/tmp/srsLTE/lib/mbedtls-2.16.3/arm/library
 )
 
 message(STATUS "MBEDTLS LIBRARIES: " ${MBEDTLS_LIBRARIES})

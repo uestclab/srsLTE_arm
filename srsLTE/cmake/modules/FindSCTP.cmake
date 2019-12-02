@@ -21,14 +21,15 @@ FIND_PATH(
 FIND_LIBRARY(
     SCTP_LIBRARIES
     NAMES sctp
-    HINTS ${PC_SCTP_LIBDIR}
-          ${CMAKE_INSTALL_PREFIX}/lib
-          ${CMAKE_INSTALL_PREFIX}/lib64
-    PATHS /usr/local/lib
-          /usr/local/lib64
-          /usr/lib
-          /usr/lib64
-          /usr/lib/x86_64-linux-gnu/
+    HINTS #${PC_SCTP_LIBDIR}
+          #${CMAKE_INSTALL_PREFIX}/lib
+          #${CMAKE_INSTALL_PREFIX}/lib64
+    PATHS #/usr/local/lib
+          #/usr/local/lib64
+          #/usr/lib
+          #/usr/lib64
+          #/usr/lib/x86_64-linux-gnu/
+          /home/gyl/liqingSpace/code/tmp/srsLTE/lib/lksctp-tools/install/lib
 )
 
 message(STATUS "SCTP LIBRARIES: " ${SCTP_LIBRARIES})

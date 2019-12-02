@@ -17,15 +17,19 @@ find_path(FFTW3F_INCLUDE_DIR
 
 find_library(FFTW3F_STATIC_LIBRARY
             NAMES fftw3f.a libfftw3f.a libfftw3f-3.a
-            HINTS ${PC_FFTW3F_LIBDIR} ${PC_FFTW3F_LIBRARY_DIRS} $ENV{FFTW3_DIR}/lib
-            PATHS /usr/local/lib
-                  /usr/lib)
+            HINTS #${PC_FFTW3F_LIBDIR} ${PC_FFTW3F_LIBRARY_DIRS} $ENV{FFTW3_DIR}/lib
+            PATHS #/usr/local/lib
+                  #/usr/lib
+				  /home/gyl/liqingSpace/code/tmp/srsLTE/lib/fftw-3.3.8/arm/lib
+)
 
 find_library(FFTW3F_LIBRARY 
             NAMES fftw3f libfftw3f libfftw3f-3
-            HINTS ${PC_FFTW3F_LIBDIR} ${PC_FFTW3F_LIBRARY_DIRS} $ENV{FFTW3_DIR}/lib
-            PATHS /usr/local/lib
-                  /usr/lib)
+            HINTS #${PC_FFTW3F_LIBDIR} ${PC_FFTW3F_LIBRARY_DIRS} $ENV{FFTW3_DIR}/lib
+            PATHS #/usr/local/lib
+                  #/usr/lib
+				  /home/gyl/liqingSpace/code/tmp/srsLTE/lib/fftw-3.3.8/arm/lib
+)
 
 set(FFTW3F_LIBRARIES ${FFTW3F_LIBRARY} )
 set(FFTW3F_STATIC_LIBRARIES ${FFTW3F_STATIC_LIBRARY} )

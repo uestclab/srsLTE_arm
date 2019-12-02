@@ -747,7 +747,7 @@ int rlc_am::rlc_am_tx::build_segment(uint8_t *payload, uint32_t nof_bytes, rlc_a
     log->error("%s Retx PDU segment length error. Available: %d, Used: %d\n",
                RB_NAME, nof_bytes, pdu_len);
     log->debug("%s Retx PDU segment length error. Header len: %ld, Payload len: %d, N_li: %d\n",
-               RB_NAME, (ptr-payload), len, new_header.N_li);
+               RB_NAME, (long int)(ptr-payload), len, new_header.N_li);
   }
 
   log->info_hex(payload, pdu_len, "%s Retx PDU segment of SN=%d (%d B), SO: %d, N_li: %d\n",
@@ -1459,7 +1459,7 @@ void rlc_am::rlc_am_rx::reassemble_rx_sdus()
 #endif
           }
         } else {
-          log->error("Cannot read %d bytes from rx_window. vr_r=%d, msg-buffer=%ld bytes\n", len, vr_r, (rx_window[vr_r].buf->msg - rx_window[vr_r].buf->buffer));
+          log->error("Cannot read %d bytes from rx_window. vr_r=%d, msg-buffer=%ld bytes\n", len, vr_r, (long int)(rx_window[vr_r].buf->msg - rx_window[vr_r].buf->buffer));
           rx_sdu.reset();
           goto exit;
         }
